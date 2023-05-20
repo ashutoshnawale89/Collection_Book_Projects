@@ -18,6 +18,24 @@ class CollectionBook:
         temp_list = {"Book Name": book_Name, "Author Name": book_Author, "Publication year": book_Publication_Year}
         self.list_Book.append(temp_list)
 
+    def seachByAuthorName(self, authorName):
+        for i in self.list_Book:
+            if authorName == i["Author Name"]:
+                print(i)
+                return
+        print("Search by Author Name Data Not Found ..........!!  ")
+
+    def seachByBookName(self, bookName):
+        for i in self.list_Book:
+            if bookName == i["Book Name"]:
+                print(i)
+                return
+        print("Search By Book Name Data Not Found ..........!!  ")
+
+
+
 obj = CollectionBook()
 obj.default_AddingBooks()
 print(obj.list_Book)
+obj.seachByAuthorName("K Row")
+obj.seachByBookName("The Pig")
