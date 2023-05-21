@@ -46,20 +46,53 @@ class CollectionBook:
                 temp_authorName = i["Author Name"]
                 temp_publicationYear = i["Publication year"]
                 temp_qty = i["Quantity"] - 1
-                self.borrow_Book.append({"Name":name, "Age":age, "Book Name": temp_bookName, "Author Name": temp_authorName, "Publication year": temp_publicationYear, "Quantity" : 1})
+                self.borrow_Book.append({"Name":name, "Age":age, "Book Name": temp_bookName, "Author Name": temp_authorName,
+                                         "Publication year": temp_publicationYear, "Quantity" : 1})
                 self.list_Book.remove(i)
                 self.list_Book.append({"Book Name": temp_bookName, "Author Name": temp_authorName, "Publication year": temp_publicationYear, "Quantity" : temp_qty})
                 print("Book is successfully Borrowing......")
                 return
         print("Search By Book Name Data Not Found ..........!!  ")
 
+    def returnBook(self,name,age,bookName):
+        temp_bookName = ''
+        temp_authorName = ''
+        temp_publicationYear = ''
+        temp_qty = 0
+        for i in self.borrow_Book:
+            if name == i["Name"]:
+                if age == i["Age"]:
+                    if bookName == i["Book Name"]:
+                        temp_bookName = i["Book Name"]
+                        temp_authorName = i["Author Name"]
+                        temp_publicationYear = i["Publication year"]
+                        temp_qty = 1
+                        self.borrow_Book.remove(i)
+                        break
 
 
-
+        if temp_qty == 1:
+            for j in self.list_Book:
+                if temp_bookName == j["Book Name"]:
+                    qty = j["Quantity"] + temp_qty
+                    self.list_Book.remove(j)
+                    self.list_Book.append({"Book Name": temp_bookName, "Author Name": temp_authorName,
+                                           "Publication year": temp_publicationYear, "Quantity": qty})
+                    print("Successfully Return book...........")
+        else:
+            print("The User/Student Not borrowing",bookName," book")
 
 
 obj = CollectionBook()
 obj.seachByAuthorName("K Row")
 obj.seachByBookName("The Pig")
 obj.borrowBook("Kunal Pandey",25,"The Pig")
+obj.borrowBook("Kushal",25,"The Pig")
+obj.borrowBook("Nikita",25,"The Pig")
+obj.borrowBook("Yogesh",25,"The Pig")
 print(obj.borrow_Book)
+obj.returnBook("Kunal Pandey",25,"The Pig")
+obj.returnBook("Kushal",25,"The Pig")
+print(obj.borrow_Book)
+print(obj.list_Book)
+
