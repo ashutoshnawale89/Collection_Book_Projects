@@ -8,10 +8,13 @@ class StudentData:
         self.list_StudentData.append({"Name":"Yogita", "Age":28, "ID Number":112883})
 
     def addStudentData(self):
-        name = input("Enter Name of Student: ")
-        age = int(input("Enter the age : "))
-        Id = int(input("Enter the id number"))
-        self.list_StudentData.append({"Name":name, "Age": age,"ID Number":Id})
+        try:
+            name = input("Enter Name of Student: ")
+            age = int(input("Enter the age : "))
+            Id = int(input("Enter the id number"))
+            self.list_StudentData.append({"Name":name, "Age": age,"ID Number":Id})
+        except Exception:
+            print("User Enter Wrong Data ...........!")
 
     def printStudentList(self):
         print(self.list_StudentData)

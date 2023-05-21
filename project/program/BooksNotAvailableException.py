@@ -1,0 +1,2 @@
+class BooksNotAvaliableException(Exception):
+    pass

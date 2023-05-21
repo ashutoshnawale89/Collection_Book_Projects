@@ -1,4 +1,6 @@
+from project.program.BooksNotAvailableException import BooksNotAvaliableException
 from project.program.StudentData import StudentData
+from project.program.UserExceptionHandle import UserExceptionHandle
 
 
 class CollectionBook():
@@ -14,12 +16,15 @@ class CollectionBook():
         self.list_Book.append({"Book Name": "Whereabouts", "Author Name": "Jhumpa Lahiri", "Publication year": "2020", "Quantity": 25})
 
     def addBook(self):
-        book_Name = input("Enter Book Name: ")
-        book_Author = input("Enter Book Author Name : ")
-        book_Publication_Year = input("Enter Book Publication_year : ")
-        book_quantity = int(input("Enter the Qty of Books: "))
-        temp_list = {"Book Name": book_Name, "Author Name": book_Author, "Publication year": book_Publication_Year, "Quantity" : book_quantity}
-        self.list_Book.append(temp_list)
+        try:
+            book_Name = input("Enter Book Name: ")
+            book_Author = input("Enter Book Author Name : ")
+            book_Publication_Year = input("Enter Book Publication_year : ")
+            book_quantity = int(input("Enter the Qty of Books: "))
+            temp_list = {"Book Name": book_Name, "Author Name": book_Author, "Publication year": book_Publication_Year, "Quantity" : book_quantity}
+            self.list_Book.append(temp_list)
+        except Exception:
+            print("Exception Occurs : User not enter data in  valid format")
 
     def seachByAuthorName(self, authorName):
         for i in self.list_Book:
@@ -35,36 +40,43 @@ class CollectionBook():
                 return
         print("Search By Book Name Data Not Found ..........!!  ")
     def borrowBook(self,name,age,bookName):
-        count = len(self.list_StudentData)
-        for j in self.list_StudentData:
-            if j["Name"] == name and j["Age"] == age:
-                for i in self.list_Book:
-                    temp_bookName = ''
-                    temp_authorName = ''
-                    temp_publicationYear = ''
-                    temp_qty = 0
+        try:
+            count = len(self.list_StudentData)
+            for j in self.list_StudentData:
+                if j["Name"] == name and j["Age"] == age:
+                    for i in self.list_Book:
+                        temp_bookName = ''
+                        temp_authorName = ''
+                        temp_publicationYear = ''
+                        temp_qty = 0
 
-                    if bookName == i["Book Name"]:
-                        temp_bookName = i["Book Name"]
-                        temp_authorName = i["Author Name"]
-                        temp_publicationYear = i["Publication year"]
-                        temp_qty = i["Quantity"] - 1
-                        if i["Quantity"] != 0:
-                            self.borrow_Book.append({"Name":name, "Age":age, "Book Name": temp_bookName, "Author Name": temp_authorName,
-                                                 "Publication year": temp_publicationYear, "Quantity" : 1})
-                            self.list_Book.remove(i)
-                            self.list_Book.append({"Book Name": temp_bookName, "Author Name": temp_authorName, "Publication year": temp_publicationYear, "Quantity" : temp_qty})
-                            print("Book is successfully Borrowing......")
-                            return
-                        else:
-                            print("The Book is Not Available at this time in library...")
-                            return
+                        if bookName == i["Book Name"]:
+                            temp_bookName = i["Book Name"]
+                            temp_authorName = i["Author Name"]
+                            temp_publicationYear = i["Publication year"]
+                            temp_qty = i["Quantity"] - 1
+                            if i["Quantity"] != 0:
+                                self.borrow_Book.append({"Name":name, "Age":age, "Book Name": temp_bookName, "Author Name": temp_authorName,
+                                                     "Publication year": temp_publicationYear, "Quantity" : 1})
+                                self.list_Book.remove(i)
+                                self.list_Book.append({"Book Name": temp_bookName, "Author Name": temp_authorName, "Publication year": temp_publicationYear, "Quantity" : temp_qty})
+                                print("Book is successfully Borrowing......")
+                                return
+                            else:
+                                print("The Book is Not Available at this time in library...")
+                                raise BooksNotAvaliableException
 
-                print("Search By Book Name Data Not Found ..........!!  ")
-                return
-            count = count -1
-        if count == 0:
-            print("User Not register in library records............!")
+                    print("Search By Book Name Data Not Found ..........!!  ")
+                    return
+                count = count -1
+            if count == 0:
+                print("User Not register in library records............!")
+                raise UserExceptionHandle
+        except UserExceptionHandle:
+            print("Exception Occurs : User is not Register ......Please Register then borrow books")
+        except BooksNotAvaliableException:
+            print("Exception occurs : Book not available in library........ Please visit after some days")
+
     def returnBook(self,name,age,bookName):
         temp_bookName = ''
         temp_authorName = ''
