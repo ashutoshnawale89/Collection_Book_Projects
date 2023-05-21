@@ -1,9 +1,11 @@
+from project.program.StudentData import StudentData
 
 
-class CollectionBook:
+class CollectionBook():
     # index 0 = Book Name   ,   index 1 = Book Author Name , index 2 = Book Publication year
     list_Book = []
     borrow_Book =[]
+    list_StudentData = []
     def __init__(self):
         self.list_Book.append({"Book Name": "The Christmas Pig", "Author Name": "JK Rowling", "Publication year": "2015", "Quantity": 25})
         self.list_Book.append({"Book Name": "The Pig", "Author Name": "K Row", "Publication year": "2016", "Quantity": 4})
@@ -32,32 +34,37 @@ class CollectionBook:
                 print(i)
                 return
         print("Search By Book Name Data Not Found ..........!!  ")
-
     def borrowBook(self,name,age,bookName):
-        for i in self.list_Book:
-            temp_bookName = ''
-            temp_authorName = ''
-            temp_publicationYear = ''
-            temp_qty = 0
+        count = len(self.list_StudentData)
+        for j in self.list_StudentData:
+            if j["Name"] == name and j["Age"] == age:
+                for i in self.list_Book:
+                    temp_bookName = ''
+                    temp_authorName = ''
+                    temp_publicationYear = ''
+                    temp_qty = 0
 
-            if bookName == i["Book Name"]:
-                temp_bookName = i["Book Name"]
-                temp_authorName = i["Author Name"]
-                temp_publicationYear = i["Publication year"]
-                temp_qty = i["Quantity"] - 1
-                if i["Quantity"] != 0:
-                    self.borrow_Book.append({"Name":name, "Age":age, "Book Name": temp_bookName, "Author Name": temp_authorName,
-                                         "Publication year": temp_publicationYear, "Quantity" : 1})
-                    self.list_Book.remove(i)
-                    self.list_Book.append({"Book Name": temp_bookName, "Author Name": temp_authorName, "Publication year": temp_publicationYear, "Quantity" : temp_qty})
-                    print("Book is successfully Borrowing......")
-                    return
-                else:
-                    print("The Book is Not Available at this time in library...")
-                    return
+                    if bookName == i["Book Name"]:
+                        temp_bookName = i["Book Name"]
+                        temp_authorName = i["Author Name"]
+                        temp_publicationYear = i["Publication year"]
+                        temp_qty = i["Quantity"] - 1
+                        if i["Quantity"] != 0:
+                            self.borrow_Book.append({"Name":name, "Age":age, "Book Name": temp_bookName, "Author Name": temp_authorName,
+                                                 "Publication year": temp_publicationYear, "Quantity" : 1})
+                            self.list_Book.remove(i)
+                            self.list_Book.append({"Book Name": temp_bookName, "Author Name": temp_authorName, "Publication year": temp_publicationYear, "Quantity" : temp_qty})
+                            print("Book is successfully Borrowing......")
+                            return
+                        else:
+                            print("The Book is Not Available at this time in library...")
+                            return
 
-        print("Search By Book Name Data Not Found ..........!!  ")
-
+                print("Search By Book Name Data Not Found ..........!!  ")
+                return
+            count = count -1
+        if count == 0:
+            print("User Not register in library records............!")
     def returnBook(self,name,age,bookName):
         temp_bookName = ''
         temp_authorName = ''
@@ -96,14 +103,32 @@ class CollectionBook:
         for i in self.borrow_Book:
             print("Book Name: ",i["Book Name"]," Borrowe by: ",i["Name"])
 
+    def addStudent(self):
+        obj1 = StudentData()
+        if len(self.list_StudentData) == 0:
+            temp_list = obj1.list_StudentData
+            for i in temp_list:
+                self.list_StudentData.append(i)
+        else:
+            self.list_StudentData.clear()
+            obj1.addStudentData()
+            temp_list = obj1.list_StudentData
+            for i in temp_list:
+                self.list_StudentData.append(i)
+
+
+
+
 obj = CollectionBook()
+obj.addStudent()
+
 obj.seachByAuthorName("K Row")
 obj.seachByBookName("The Pig")
 obj.borrowBook("Kunal Pandey",25,"The Pig")
 obj.borrowBook("Kushal",25,"The Pig")
-obj.borrowBook("Nikita",25,"The Pig")
+obj.borrowBook("Nikita",26,"The Pig")
 obj.borrowBook("Yogesh",25,"The Pig")
-obj.borrowBook("Ritesh",25,"The Pig")
+obj.borrowBook("Ritesh",24,"The Pig")
 print(obj.list_Book)
 print(obj.borrow_Book)
 obj.trackAvailabilityBook()
@@ -112,4 +137,7 @@ obj.returnBook("Kushal",25,"The Pig")
 print(obj.borrow_Book)
 print(obj.list_Book)
 obj.displayBorrowedBook()
+obj.addStudent()
+print(obj.list_StudentData)
+
 
