@@ -92,6 +92,9 @@ class CollectionBook:
             else:
                 print(i["Book Name"], "Avalability : No")
 
+    def displayBorrowedBook(self):
+        for i in self.borrow_Book:
+            print("Book Name: ",i["Book Name"]," Borrowe by: ",i["Name"])
 
 obj = CollectionBook()
 obj.seachByAuthorName("K Row")
@@ -108,4 +111,5 @@ obj.returnBook("Kunal Pandey",25,"The Pig")
 obj.returnBook("Kushal",25,"The Pig")
 print(obj.borrow_Book)
 print(obj.list_Book)
+obj.displayBorrowedBook()
 
