@@ -128,28 +128,67 @@ class CollectionBook():
             for i in temp_list:
                 self.list_StudentData.append(i)
 
-
+    def stepOfFunction(self):
+        print("Enter the number according use ")
+        print("0 - for the end of program","-------","1 - Search by Author name","-------","2 - Search by Book name","-------")
+        print( "3 - Barrowe Book","----------------","4 - Track Availability","----------","5 - Return Book","-----------------","6 - Display Borrowed Book")
+        print("7 - Add Students","-----------------","8 - Add Book","---------------------","9 - Book data list","-------------","10 - Student Data list")
+        count = int(input("Enter the input : "))
+        if count == 1:
+            temp_author = input("Enter Author Name")
+            self.seachByAuthorName(temp_author)
+        elif count == 2:
+            temp_Book = input("Enter Book Name")
+            self.seachByBookName(temp_Book)
+        elif count == 3:
+            temp_name = input("Enter The Name/User")
+            temp_age = int(input("Enter Age"))
+            temp_book = input("Enter borrow book Name")
+            self.borrowBook(temp_name, temp_age, temp_book)
+        elif count == 4:
+            self.trackAvailabilityBook()
+        elif count == 5:
+            temp_name = input("Enter The Name/User")
+            temp_age = int(input("Enter Age"))
+            temp_book = input("Enter return book Name")
+            self.returnBook(temp_name, temp_age, temp_book)
+        elif count == 6:
+            self.displayBorrowedBook()
+        elif count == 7:
+            self.addStudent()
+        elif count == 8:
+            self.addBook()
+        elif count == 9:
+            print(self.list_Book)
+        elif count == 10:
+            print(self.list_StudentData)
+        elif count == 0:
+            print("End of The Program")
+            return
+        else:
+            print("User Enter the Incorrect Input ....")
+        self.stepOfFunction()
 
 
 obj = CollectionBook()
 obj.addStudent()
+obj.stepOfFunction()
 
-obj.seachByAuthorName("K Row")
-obj.seachByBookName("The Pig")
-obj.borrowBook("Kunal Pandey",25,"The Pig")
-obj.borrowBook("Kushal",25,"The Pig")
-obj.borrowBook("Nikita",26,"The Pig")
-obj.borrowBook("Yogesh",25,"The Pig")
-obj.borrowBook("Ritesh",24,"The Pig")
-print(obj.list_Book)
-print(obj.borrow_Book)
-obj.trackAvailabilityBook()
-obj.returnBook("Kunal Pandey",25,"The Pig")
-obj.returnBook("Kushal",25,"The Pig")
-print(obj.borrow_Book)
-print(obj.list_Book)
-obj.displayBorrowedBook()
-obj.addStudent()
-print(obj.list_StudentData)
+#obj.seachByBookName("The Pig")
+# obj.borrowBook("Kunal Pandey",25,"The Pig")
+# obj.borrowBook("Kushal",25,"The Pig")
+# obj.borrowBook("Nikita",26,"The Pig")
+# obj.borrowBook("Yogesh",25,"The Pig")
+# obj.borrowBook("Ritesh",24,"The Pig")
+# print(obj.list_Book)
+# print(obj.borrow_Book)
+#obj.trackAvailabilityBook()
+# obj.returnBook("Kunal Pandey",25,"The Pig")
+# obj.returnBook("Kushal",25,"The Pig")
+# print(obj.borrow_Book)
+# print(obj.list_Book)
+# obj.displayBorrowedBook()
+# obj.addStudent()
+# print(obj.list_StudentData)
 
 
